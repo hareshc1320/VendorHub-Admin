@@ -7,6 +7,7 @@ export interface Product {
   stock: number;
   category: string;
   description: string | null;
+  image_url: string | null;
   owner_id: string;
   created_at: string;
 }
@@ -42,16 +43,16 @@ export interface Profile {
 }
 
 export const INITIAL_PRODUCTS: Product[] = [
-  { id: "p1", name: "Wireless Noise-Cancelling Headphones", price: 299.99, stock: 42, category: "Audio", description: "Premium audio with ANC", owner_id: "mock", created_at: "2026-01-15T10:00:00Z" },
-  { id: "p2", name: "Smart Fitness Tracker Pro", price: 149.99, stock: 8, category: "Wearables", description: "Track your health goals", owner_id: "mock", created_at: "2026-01-20T09:00:00Z" },
-  { id: "p3", name: "USB-C Hub 10-in-1", price: 79.99, stock: 0, category: "Accessories", description: "Expand your connectivity", owner_id: "mock", created_at: "2026-02-01T08:00:00Z" },
-  { id: "p4", name: "Mechanical Keyboard RGB", price: 189.99, stock: 23, category: "Peripherals", description: "Tactile typing experience", owner_id: "mock", created_at: "2026-02-10T11:00:00Z" },
-  { id: "p5", name: "4K Webcam Pro", price: 129.99, stock: 5, category: "Cameras", description: "Crystal clear video calls", owner_id: "mock", created_at: "2026-02-20T13:00:00Z" },
-  { id: "p6", name: "Portable SSD 1TB", price: 99.99, stock: 67, category: "Storage", description: "Fast and compact storage", owner_id: "mock", created_at: "2026-03-01T10:00:00Z" },
-  { id: "p7", name: "Wireless Charging Pad", price: 49.99, stock: 0, category: "Accessories", description: "Qi-certified fast charging", owner_id: "mock", created_at: "2026-03-10T14:00:00Z" },
-  { id: "p8", name: "True Wireless Earbuds", price: 199.99, stock: 31, category: "Audio", description: "12h battery + ANC", owner_id: "mock", created_at: "2026-03-15T09:00:00Z" },
-  { id: "p9", name: "Smart Watch Series X", price: 399.99, stock: 14, category: "Wearables", description: "Premium health tracking", owner_id: "mock", created_at: "2026-04-01T10:00:00Z" },
-  { id: "p10", name: "Gaming Mouse Pro", price: 89.99, stock: 55, category: "Peripherals", description: "16000 DPI precision", owner_id: "mock", created_at: "2026-04-10T11:00:00Z" },
+  { id: "p1", name: "Wireless Noise-Cancelling Headphones", price: 299.99, stock: 42, category: "Audio", description: "Premium audio with ANC", image_url: null, owner_id: "mock", created_at: "2026-01-15T10:00:00Z" },
+  { id: "p2", name: "Smart Fitness Tracker Pro", price: 149.99, stock: 8, category: "Wearables", description: "Track your health goals", image_url: null, owner_id: "mock", created_at: "2026-01-20T09:00:00Z" },
+  { id: "p3", name: "USB-C Hub 10-in-1", price: 79.99, stock: 0, category: "Accessories", description: "Expand your connectivity", image_url: null, owner_id: "mock", created_at: "2026-02-01T08:00:00Z" },
+  { id: "p4", name: "Mechanical Keyboard RGB", price: 189.99, stock: 23, category: "Peripherals", description: "Tactile typing experience", image_url: null, owner_id: "mock", created_at: "2026-02-10T11:00:00Z" },
+  { id: "p5", name: "4K Webcam Pro", price: 129.99, stock: 5, category: "Cameras", description: "Crystal clear video calls", image_url: null, owner_id: "mock", created_at: "2026-02-20T13:00:00Z" },
+  { id: "p6", name: "Portable SSD 1TB", price: 99.99, stock: 67, category: "Storage", description: "Fast and compact storage", image_url: null, owner_id: "mock", created_at: "2026-03-01T10:00:00Z" },
+  { id: "p7", name: "Wireless Charging Pad", price: 49.99, stock: 0, category: "Accessories", description: "Qi-certified fast charging", image_url: null, owner_id: "mock", created_at: "2026-03-10T14:00:00Z" },
+  { id: "p8", name: "True Wireless Earbuds", price: 199.99, stock: 31, category: "Audio", description: "12h battery + ANC", image_url: null, owner_id: "mock", created_at: "2026-03-15T09:00:00Z" },
+  { id: "p9", name: "Smart Watch Series X", price: 399.99, stock: 14, category: "Wearables", description: "Premium health tracking", image_url: null, owner_id: "mock", created_at: "2026-04-01T10:00:00Z" },
+  { id: "p10", name: "Gaming Mouse Pro", price: 89.99, stock: 55, category: "Peripherals", description: "16000 DPI precision", image_url: null, owner_id: "mock", created_at: "2026-04-10T11:00:00Z" },
 ];
 
 export const INITIAL_CUSTOMERS: Customer[] = [

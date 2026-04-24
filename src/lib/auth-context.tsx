@@ -12,7 +12,6 @@ interface AuthContextValue {
   loading: boolean;
   signInWithEmail:  (email: string, password: string, fullName?: string) => Promise<{ error: Error | null }>;
   signUpWithEmail:  (email: string, password: string, fullName?: string) => Promise<{ error: Error | null }>;
-  signInWithGoogle: () => Promise<{ error: Error | null }>;
   signOut: () => Promise<void>;
 }
 
@@ -71,11 +70,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }
 
-  // Google OAuth not implemented in backend — uses demo login
-  async function signInWithGoogle(): Promise<{ error: Error | null }> {
-    return signInWithEmail("admin@vendorhub.io", "admin123");
-  }
-
   async function signOut(): Promise<void> {
     clearToken();
     removeUser();
@@ -83,7 +77,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <AuthContext.Provider value={{ user, loading: false, signInWithEmail, signUpWithEmail, signInWithGoogle, signOut }}>
+    <AuthContext.Provider value={{ user, loading: false, signInWithEmail, signUpWithEmail, signOut }}>
       {children}
     </AuthContext.Provider>
   );

@@ -9,6 +9,7 @@ import { SettingsPage }  from "@/routes/settings";
 import { PricingPage }        from "@/routes/pricing";
 import { NotificationsPage }  from "@/routes/notifications";
 import { ReportsPage }        from "@/routes/reports";
+import { ReviewsPage }        from "@/routes/reviews";
 import { LoginPage }          from "@/routes/login";
 
 const rootRoute = createRootRoute({ component: Outlet });
@@ -61,6 +62,12 @@ const reportsRoute = createRoute({
   component: () => <AuthGuard><ReportsPage /></AuthGuard>,
 });
 
+const reviewsRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: "/reviews",
+  component: () => <AuthGuard><ReviewsPage /></AuthGuard>,
+});
+
 const loginRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/login",
@@ -76,6 +83,7 @@ const routeTree = rootRoute.addChildren([
   pricingRoute,
   notificationsRoute,
   reportsRoute,
+  reviewsRoute,
   loginRoute,
 ]);
 

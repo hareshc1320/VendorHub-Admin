@@ -4,14 +4,82 @@ import { DashboardLayout } from "@/components/dashboard-layout";
 import { RecentOrders } from "@/components/recent-orders";
 import {
   DollarSign, ShoppingCart, Users, Package, Plus,
-  TrendingUp, Zap, FileText, UserPlus, Star,
+  TrendingUp, Zap, FileText, UserPlus, Star, Store,
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useDashboardStats, useProducts, useDashboardRevenue } from "@/lib/api-hooks";
 import { ReportsModal } from "@/components/reports-modal";
 import {
   AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from "recharts";
+
+/* ─── Welcome Overlay (once per session) ─── */
+function WelcomeOverlay() {
+  const [visible, setVisible] = useState(() => !sessionStorage.getItem("vh_welcomed"));
+
+  useEffect(() => {
+    if (!visible) return;
+    const t = setTimeout(() => {
+      setVisible(false);
+      sessionStorage.setItem("vh_welcomed", "1");
+    }, 2000);
+    return () => clearTimeout(t);
+  }, [visible]);
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-background"
+          initial={{ opacity: 1 }}
+          exit={{ opacity: 0, scale: 1.04 }}
+          transition={{ duration: 0.55, ease: "easeInOut" }}
+        >
+          <motion.div
+            initial={{ scale: 0.7, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ type: "spring", damping: 18, stiffness: 220 }}
+            className="flex flex-col items-center gap-5"
+          >
+            <motion.div
+              animate={{ rotate: [0, -8, 8, -4, 4, 0] }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              className="flex h-20 w-20 items-center justify-center rounded-3xl bg-primary shadow-[0_0_40px_rgba(99,102,241,0.4)]"
+            >
+              <Store className="h-10 w-10 text-primary-foreground" />
+            </motion.div>
+            <div className="text-center space-y-1">
+              <motion.h1
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="text-2xl font-bold text-foreground"
+              >
+                VendorHub
+              </motion.h1>
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.35 }}
+                className="text-sm text-muted-foreground"
+              >
+                Loading your dashboard…
+              </motion.p>
+            </div>
+            <motion.div className="w-40 h-1 rounded-full bg-primary/15 overflow-hidden">
+              <motion.div
+                className="h-full rounded-full bg-primary"
+                initial={{ width: "0%" }}
+                animate={{ width: "100%" }}
+                transition={{ duration: 1.85, ease: "easeInOut" }}
+              />
+            </motion.div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}
 
 /* ─── Animated counter hook ─── */
 function useCountUp(target: number, duration = 1400) {
@@ -277,6 +345,7 @@ export function IndexPage() {
 
   return (
     <DashboardLayout>
+      <WelcomeOverlay />
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: 10 }}

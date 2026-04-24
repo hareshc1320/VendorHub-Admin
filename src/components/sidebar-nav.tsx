@@ -1,7 +1,7 @@
 import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import {
   LayoutDashboard, ShoppingBag, ClipboardList, Users, Settings,
-  ChevronLeft, ChevronRight, Store, LogOut, Tag, BarChart3, Bell,
+  ChevronLeft, ChevronRight, Store, LogOut, Tag, BarChart3, Bell, Star,
 } from "lucide-react";
 import { useDashboard } from "@/lib/dashboard-context";
 import { useAuth } from "@/lib/auth-context";
@@ -14,6 +14,7 @@ const navItems = [
   { label: "Customers",     path: "/customers",      icon: Users           },
   { label: "Reports",       path: "/reports",        icon: BarChart3       },
   { label: "Pricing",       path: "/pricing",        icon: Tag             },
+  { label: "Reviews",       path: "/reviews",        icon: Star            },
   { label: "Notifications", path: "/notifications",  icon: Bell            },
   { label: "Settings",      path: "/settings",       icon: Settings        },
 ];

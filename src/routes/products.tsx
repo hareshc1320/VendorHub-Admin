@@ -123,9 +123,17 @@ export function ProductsPage() {
                     >
                       <td className="px-4 py-3.5">
                         <div className="flex items-center gap-3">
-                          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/40 text-lg">
-                            📦
-                          </div>
+                          {p.image_url ? (
+                            <img
+                              src={p.image_url}
+                              alt={p.name}
+                              className="h-10 w-10 shrink-0 rounded-lg object-cover border border-border"
+                            />
+                          ) : (
+                            <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-accent/40 text-lg">
+                              📦
+                            </div>
+                          )}
                           <div>
                             <p className="font-medium text-card-foreground leading-tight">{p.name}</p>
                             <p className="text-xs text-muted-foreground sm:hidden mt-0.5">{p.category}</p>

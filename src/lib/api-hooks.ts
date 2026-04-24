@@ -27,6 +27,23 @@ export function useCreateProduct() {
   });
 }
 
+export async function uploadFile(file: File): Promise<{ url: string; name: string; mimetype: string }> {
+  const BASE = import.meta.env.VITE_API_URL ?? "http://localhost:3001/api";
+  const token = localStorage.getItem("vendorhub_token");
+  const form = new FormData();
+  form.append("file", file);
+  const res = await fetch(`${BASE}/upload`, {
+    method: "POST",
+    headers: token ? { Authorization: `Bearer ${token}` } : {},
+    body: form,
+  });
+  if (!res.ok) {
+    const body = await res.json().catch(() => ({ error: "Upload failed" }));
+    throw new Error(body.error ?? "Upload failed");
+  }
+  return res.json();
+}
+
 export function useUpdateProduct() {
   const qc = useQueryClient();
   return useMutation({
@@ -203,6 +220,51 @@ export function useDismissNotification() {
   return useMutation({
     mutationFn: (id: string) => apiFetch(`/notifications/${id}`, { method: "DELETE" }),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["notifications"] }),
+  });
+}
+
+// ===== REVIEWS =====
+export interface Review {
+  id: string;
+  customer_name: string;
+  product_name: string;
+  rating: number;
+  comment: string | null;
+  status: string;
+  owner_id: string;
+  createdAt: string;
+}
+
+export function useReviews() {
+  return useQuery<Review[]>({
+    queryKey: ["reviews"],
+    queryFn: () => apiFetch<Review[]>("/reviews"),
+  });
+}
+
+export function useCreateReview() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (input: Omit<Review, "id" | "owner_id" | "createdAt">) =>
+      apiFetch<Review>("/reviews", { method: "POST", body: JSON.stringify(input) }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["reviews"] }),
+  });
+}
+
+export function useUpdateReview() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: ({ id, ...patch }: { id: string } & Partial<Review>) =>
+      apiFetch<Review>(`/reviews/${id}`, { method: "PUT", body: JSON.stringify(patch) }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["reviews"] }),
+  });
+}
+
+export function useDeleteReview() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: (id: string) => apiFetch(`/reviews/${id}`, { method: "DELETE" }),
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["reviews"] }),
   });
 }
 
