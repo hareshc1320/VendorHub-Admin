@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { DashboardLayout } from "@/components/dashboard-layout";
 import { motion, AnimatePresence } from "framer-motion";
-import { Star, Trash2, Eye, EyeOff, Clock, CheckCircle, Search } from "lucide-react";
+import { Star, Trash2, Eye, EyeOff, Clock, CheckCircle, AlertCircle, Search } from "lucide-react";
 import { useReviews, useUpdateReview, useDeleteReview, useCreateReview, type Review } from "@/lib/api-hooks";
 import { toast } from "sonner";
 
